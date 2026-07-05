@@ -1,0 +1,284 @@
+// RFID command fields
+const uint8_t Head = 0xA0;
+const uint8_t Len = 0x06;
+const uint8_t Address = 0x01;
+const uint8_t Cmd = 0x8B;
+const uint8_t Session = 0x00;
+const uint8_t Target = 0x00;
+const uint8_t Repeat = 0x01;
+const uint8_t Check = 0xCD;
+
+
+// RFID UART
+HardwareSerial RFID(1);
+
+
+// Command packet
+uint8_t SendCmd[8];
+
+
+// Receive buffer
+uint8_t recvBuffer[64];
+uint8_t recvIndex = 0;
+bool isHeadDetected = false;
+
+
+
+void setup()
+{
+  pinMode(2, OUTPUT);
+
+  // USB debug serial
+  Serial.begin(115200);
+
+  // RFID serial
+  // RX = GPIO14
+  // TX = GPIO26
+  RFID.begin(
+    115200,
+    SERIAL_8N1,
+    26,
+        14
+
+  );
+
+
+  SendCmd[0] = Head;
+  SendCmd[1] = Len;
+  SendCmd[2] = Address;
+  SendCmd[3] = Cmd;
+  SendCmd[4] = Session;
+  SendCmd[5] = Target;
+  SendCmd[6] = Repeat;
+  SendCmd[7] = Check;
+
+
+  Serial.println("RFID reader started");
+
+  sendCommand();
+}
+
+
+
+void loop()
+{
+  static unsigned long lastSend = 0;
+
+
+  if (millis() - lastSend >= 1000)
+  {
+    lastSend = millis();
+    sendCommand();
+  }
+
+
+  // USB Serial0 RX -> Serial1 TX
+  while (Serial.available())
+  {
+    uint8_t b = Serial.read();
+    RFID.write(b);
+  }
+
+  while (RFID.available())
+  {
+    uint8_t b = RFID.read();
+
+
+    // wait for packet header
+    if (!isHeadDetected)
+    {
+      if (b == Head)
+      {
+        isHeadDetected = true;
+        recvBuffer[recvIndex++] = b;
+      }
+
+      continue;
+    }
+
+
+    recvBuffer[recvIndex++] = b;
+
+
+    // after we receive length byte
+    if (recvIndex > 1)
+    {
+      uint8_t packetLength = recvBuffer[1];
+
+
+      // full packet received
+      if (recvIndex >= packetLength + 1)
+      {
+        parseResponse();
+
+        recvIndex = 0;
+        isHeadDetected = false;
+      }
+    }
+
+
+    // prevent overflow
+    if (recvIndex >= sizeof(recvBuffer))
+    {
+      recvIndex = 0;
+      isHeadDetected = false;
+    }
+  }
+}
+
+
+
+
+void sendCommand()
+{
+  digitalWrite(2, HIGH);
+
+
+  // THIS goes only to RFID
+  RFID.write(SendCmd, sizeof(SendCmd));
+
+
+  delay(10);
+
+  digitalWrite(2, LOW);
+
+
+  Serial.println("Sent inventory command");
+}
+
+
+
+
+
+void parseResponse()
+{
+  Serial.print("Response: ");
+
+
+  // print raw bytes
+  for (int i = 0; i < recvIndex; i++)
+  {
+    if (recvBuffer[i] < 0x10)
+      Serial.print("0");
+
+    Serial.print(recvBuffer[i], HEX);
+    Serial.print(" ");
+  }
+
+  Serial.println();
+
+
+
+  // success response
+  if (
+    recvBuffer[0] == Head &&
+    recvBuffer[3] == Cmd &&
+    recvBuffer[1] == 0x0A
+  )
+  {
+
+    uint8_t antenna = recvBuffer[4];
+
+
+    uint32_t readRate =
+      ((uint32_t)recvBuffer[5] << 24) |
+      ((uint32_t)recvBuffer[6] << 16) |
+      ((uint32_t)recvBuffer[7] << 8) |
+       recvBuffer[8];
+
+
+    uint16_t totalTags =
+      ((uint16_t)recvBuffer[9] << 8) |
+       recvBuffer[10];
+
+
+    Serial.print("Success ");
+    Serial.print("Antenna: ");
+    Serial.print(antenna);
+
+    Serial.print(" Rate: ");
+    Serial.print(readRate);
+
+    Serial.print(" Tags: ");
+    Serial.println(totalTags);
+
+    return;
+  }
+
+
+
+  // error response
+  if (
+    recvBuffer[0] == Head &&
+    recvBuffer[3] == Cmd &&
+    recvBuffer[1] == 0x04
+  )
+  {
+
+    Serial.print("Reader error: 0x");
+    Serial.println(recvBuffer[4], HEX);
+
+    return;
+  }
+
+
+
+  // tag response
+  if (
+    recvBuffer[0] == Head &&
+    recvBuffer[3] == Cmd &&
+    recvBuffer[1] > 0x08
+  )
+  {
+
+    uint8_t freqAnt = recvBuffer[4];
+
+    uint8_t antenna = freqAnt & 0x03;
+    uint8_t freq = freqAnt >> 2;
+
+
+    uint16_t pc =
+      ((uint16_t)recvBuffer[5] << 8) |
+       recvBuffer[6];
+
+
+    uint8_t epcLength = recvBuffer[1] - 8;
+
+
+    Serial.print("TAG ");
+    Serial.print("Antenna: ");
+    Serial.print(antenna);
+
+    Serial.print(" Frequency: ");
+    Serial.print(freq);
+
+    Serial.print(" EPC: ");
+
+
+    for (
+      int i = 7;
+      i < 7 + epcLength;
+      i++
+    )
+    {
+      if (recvBuffer[i] < 0x10)
+        Serial.print("0");
+
+      Serial.print(recvBuffer[i], HEX);
+      Serial.print(" ");
+    }
+
+
+    Serial.print(" RSSI: ");
+    Serial.println(
+      recvBuffer[7 + epcLength]
+    );
+
+
+    return;
+  }
+
+
+
+  Serial.println("Unknown packet");
+}
