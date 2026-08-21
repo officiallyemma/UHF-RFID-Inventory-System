@@ -13,6 +13,8 @@ struct Tag {
   float smoothedRssi;
   unsigned long lastSeen;
   int pings;
+  float pingsPerSec;
+  float pingsPerSecNormalized;
 };
 
 struct SavedTag {

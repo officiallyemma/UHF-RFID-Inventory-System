@@ -61,6 +61,7 @@ void reportTag(const uint8_t* epc, uint8_t epcLen, int8_t rssi) {
       knownTags[i].rssi = rssi;
       knownTags[i].lastSeen = now;
       knownTags[i].pings++;
+      // knownTags[i].pingsPerSec = now / 1000 > 0 ? ((float)knownTags[i].pings / (now / 1000)) : 0;
       return;
     }
   }

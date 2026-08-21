@@ -36,12 +36,10 @@ void displayLoop();
 void sendCommand(uint8_t cmd[], size_t cmdSize);
 void parseResponse();
 void parseTag();
-void parseTag2();
 void parseSuccess();
 void dumpHex();
 int16_t roundRssi(float value);
 uint8_t checksum(const uint8_t* data, size_t length);
-int8_t rssiToDecibel(uint8_t rssi);
 
 bool doSerial = true;
 
@@ -60,7 +58,7 @@ void setup() {
   inventoryCmd[3] = 0x8B;  // cmd (undocumented)
   inventoryCmd[4] = 0x10;  // channel
   inventoryCmd[5] = 0x00;  // tag a/b
-  inventoryCmd[6] = 0x10;  // repeat
+  inventoryCmd[6] = 0xFF;  // repeat
 
   // inventoryCmd[0] = 0xA0;  // head
   // inventoryCmd[1] = 0x04;  // len
@@ -234,20 +232,9 @@ void parseResponse() {
 }
 
 void parseSuccess() {
+  // there is a ramp up (setup overhead) when calling this. serial calls will endure a delay.
+  // there is probably a better way to do this
   sendCommand(inventoryCmd, sizeof(inventoryCmd));
-
-  //   print("SUCCESS: ");
-
-  // uint16_t rate = ((uint16_t)recvBuffer[5] << 8) | recvBuffer[6];
-  // uint16_t tags = ((uint16_t)recvBuffer[9] << 8) | recvBuffer[10];
-
-  //   print("Rate=");
-  //   print(rate);
-
-  //   print(" Tags=");
-  //   println(tags);
-  // print(">TAGS:");
-  // println(tags);
 }
 
 int16_t roundRssi(float value) { return (int16_t)(value < 0 ? value - 0.5f : value + 0.5f); }
@@ -267,79 +254,8 @@ void parseTag() {
     if (epcLen >= 2) {
       tailId = ((uint16_t)epc[epcLen - 2] << 8) | epc[epcLen - 1];
     }
-
-    print(">TAG_DBM_");
-    if (tailId < 0x1000) print("0");
-    if (tailId < 0x0100) print("0");
-    if (tailId < 0x0010) print("0");
-    print(tailId, HEX);
-    print(":");
-    print(rssiToDecibel(smoothedDisplay));
-    println("|g");
-    println(">y_max:0|g");
-    println(">y_min:-125|g");
   }
-
-  // if (!shouldReport) {
-  //   return;
-  // }
-
-  // print("TAG EPC: ");
-
-  // for (int i = epcOffset; i < recvIndex - 2; i++) {
-  //   if (recvBuffer[i] < 0x10) print(0);
-  //   print(recvBuffer[i], HEX);
-  //   print(" ");
-  // }
-
-  // print(" RSSI: ");
-  // println(smoothedDisplay);
 }
-
-// void parseTag2() {
-//   int epcOffset = 7;
-//   int8_t rssi = (int8_t)recvBuffer[recvIndex - 2];
-
-//   if (recvIndex > epcOffset + 2) {
-//     uint8_t epcLen = recvIndex - 2 - epcOffset;
-//     uint8_t epc[MaxEpcLength];
-//     if (epcLen > MaxEpcLength) epcLen = MaxEpcLength;
-//     memcpy(epc, recvBuffer + epcOffset, epcLen);
-//     reportTag(epc, epcLen, rssi);
-
-//     int16_t smoothedDisplay = roundRssi(getSmoothedRssi(epc, epcLen, rssi));
-//     uint16_t tailId = 0;
-//     if (epcLen >= 2) {
-//       tailId = ((uint16_t)epc[epcLen - 2] << 8) | epc[epcLen - 1];
-//     }
-
-//     print(">TAG_DBM_");
-//     if (tailId < 0x1000) print("0");
-//     if (tailId < 0x0100) print("0");
-//     if (tailId < 0x0010) print("0");
-//     print(tailId, HEX);
-//     print(":");
-//     print(rssiToDecibel(smoothedDisplay));
-//     println("|g");
-//     println(">y_max:0|g");
-//     println(">y_min:-125|g");
-//   }
-
-// if (!shouldReport) {
-//   return;
-// }
-
-// print("TAG EPC: ");
-
-// for (int i = epcOffset; i < recvIndex - 2; i++) {
-//   if (recvBuffer[i] < 0x10) print(0);
-//   print(recvBuffer[i], HEX);
-//   print(" ");
-// }
-
-// print(" RSSI: ");
-// println(smoothedDisplay);
-// }
 
 void dumpHex() {
   print("RAW: ");
