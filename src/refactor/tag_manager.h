@@ -24,8 +24,6 @@ struct SavedTag {
 };
 
 extern Tag knownTags[MaxTrackedTags];
-extern SavedTag savedTags[];
-extern const uint8_t maxSavedTags;
 
 bool epcEqual(const Tag& tag, const uint8_t* epc, uint8_t epcLen);
 bool epcTailEqual(const uint8_t* epcA, uint8_t lenA, const uint8_t* epcB, uint8_t lenB, uint8_t tailLen);

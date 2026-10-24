@@ -2,25 +2,25 @@
 
 #include <Arduino.h>
 
-extern bool doSerial;
+extern bool isESPSerialOutActive;
 
 template <typename T>
 inline void print(const T& value) {
-  if (doSerial) {
+  if (isESPSerialOutActive) {
     Serial.print(value);
   }
 }
 
 template <typename T>
 inline void print(const T& value, int format) {
-  if (doSerial) {
+  if (isESPSerialOutActive) {
     Serial.print(value, format);
   }
 }
 
 template <typename T, typename... Args>
 inline void print(const T& first, const Args&... rest) {
-  if (doSerial) {
+  if (isESPSerialOutActive) {
     Serial.print(first);
     print(rest...);
   }
@@ -28,13 +28,13 @@ inline void print(const T& first, const Args&... rest) {
 
 template <typename T>
 inline void println(const T& value) {
-  if (doSerial) {
+  if (isESPSerialOutActive) {
     Serial.println(value);
   }
 }
 
 inline void println() {
-  if (doSerial) {
+  if (isESPSerialOutActive) {
     Serial.println();
   }
 }
@@ -44,7 +44,7 @@ inline void printHexByte(uint8_t b) {
   print(b, HEX);
 }
 
-inline void printHexTwoBytes(uint16_t b) {
+inline void printTwoHexBytes(uint16_t b) {
   if (b < 0x1000) print("0");
   if (b < 0x0100) print("0");
   if (b < 0x0010) print("0");
