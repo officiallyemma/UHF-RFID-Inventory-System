@@ -2,9 +2,7 @@
 
 https://github.com/user-attachments/assets/c475d00b-563d-4544-90bf-386b262ad7c9
 
-<img width="250" alt="image" src="docs/images/1.png" />
-<img width="250" alt="image" src="docs/images/2.png" />
-<img width="250" alt="image" src="docs/images/3.png" />
+<img width="250" alt="image" src="docs/images/1.png" /><img width="250" alt="image" src="docs/images/2.png" /><img width="250" alt="image" src="docs/images/3.png" />
 
 ---
 
