@@ -31,9 +31,9 @@ RFID uses the fact that radio waves can both bounce off of and be absorbed by ob
 <details>
 <summary>An Aside: The history of RFID</summary>
 
-<img width="250" src="docs/images/soviet_thing.png" />
+> <img width="250" src="docs/images/soviet_thing.png" />
 
-During the tail end of World War II, the United State's Ambassador to the Soviet Union received a carved wooden emblem as a gift. Innocuous enough and hand delivered by Moscow schoolchildren, this eagle carving was proudly displayed in the Ambassador's Moscow residence. Hidden inside, however, was a sophisticated listening device that used the principal behind RFID to encode messages in radio wave reflections. The device, which became known as the Thing, needed no battery or power source. Instead, it relied on a radio antenna stationed nearby to broadcast a signal. Radio waves can both bounce off of and be absorbed by objects. A microphone inside the carving would vary how much of the signal gets absorbed, which impacts the signal reflected back. By detecting variations in signal's reflection, audio information could be decoded. This system was used to spy on the United States government, without detection, for nearly 7 years.
+> During the tail end of World War II, the United State's Ambassador to the Soviet Union received a carved wooden emblem as a gift. Innocuous enough and hand delivered by Moscow schoolchildren, this eagle carving was proudly displayed in the Ambassador's Moscow residence. Hidden inside, however, was a sophisticated listening device that used the principal behind RFID to encode messages in radio wave reflections. The device, which became known as the Thing, needed no battery or power source. Instead, it relied on a radio antenna stationed nearby to broadcast a signal. Radio waves can both bounce off of and be absorbed by objects. A microphone inside the carving would vary how much of the signal gets absorbed, which impacts the signal reflected back. By detecting variations in signal's reflection, audio information could be decoded. This system was used to spy on the United States government, without detection, for nearly 7 years.
 
 </details>
 
