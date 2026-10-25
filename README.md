@@ -72,7 +72,7 @@ I chose a 2.42" SSD1309 128x64 OLED Display for size and cost. The size of this 
 
 Any microcontroller should work though.
 
-I was able to source the RFID reader board and antenna together from AliExpress for just under $100. I got the display from Amazon for $15 and the ESP32 for $5. Coming in at $120 total, this device is surprisingly economical for it's functionality.
+I was able to source the RFID reader board and antenna together from AliExpress for just under $100. I got the display from Amazon for $15 and the ESP32 for $5. Coming in at $120 total, this device is surprisingly economical for its functionality.
 
 ## Hardware
 
@@ -82,4 +82,4 @@ The electronics are held in a 3D printed case. STL files are available. If you'd
 
 ## Software
 
-The ESP32 software only needs to periodically send inventory commands to the reader and listen for tag data back in response. The RFID board handles all of the actual RFID inventorying, collision avoidance, and nitty-gritty communication details. All the ESP32 has to do is issue "start inventory" commands and wait for tags to be detected. By default, the device will scan for all saved tags in the vicinity. Once all tags are read, the device shows a check mark and put's the processor to sleep. If, instead after 5 minutes, not all saved tags have been found, an X mark is instead displayed alongside a list of missing tools.
+The ESP32 software only needs to periodically send inventory commands to the reader and listen for tag data back in response. The RFID board handles all of the actual RFID inventorying, collision avoidance, and nitty-gritty communication details. All the ESP32 has to do is issue "start inventory" commands and wait for tags to be detected. By default, the device will scan for all saved tags in the vicinity. Once all tags are read, the device shows a check mark and puts the processor to sleep. If, instead after 5 minutes, not all saved tags have been found, an X mark is instead displayed alongside a list of missing tools.
