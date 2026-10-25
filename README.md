@@ -24,12 +24,18 @@ This led me to think about the actual limits of RFID technology. I was particula
 
 ## Background
 
+<img width="500" src="docs/images/explainer.gif" />
+
+RFID uses the fact that radio waves can both bounce off of and be absorbed by objects depending on material properties.
+
 <details>
 <summary>An Aside: The history of RFID</summary>
-During the tail end of World War II, the United State's Ambassador to the Soviet Union received a carved wooden emblem as a gift. Innocuous enough and hand delivered by Moscow schoolchildren, this eagle carving was proudly displayed in the Ambassador's Moscow residence. Hidden inside, however, was a sophisticated listening device that used the principal behind RFID to encode messages in radio wave reflections. The device, which became known as the Thing, needed no battery or power source. Instead, it relied on a radio antenna stationed nearby to broadcast a signal. Radio waves can both bounce off of and be absorbed by objects. A microphone inside the carving would vary how much of the signal gets absorbed, which impacts the signal reflected back. By detecting variations in signal's reflection, audio information could be decoded. This system was used to spy  on the United States government, without detection, for nearly 7 years.
-</details>
 
-RFID uses the fact that radio waves can both bounce off of and be absorbed by objects.
+<img width="250" src="docs/images/soviet_thing.png" />
+
+During the tail end of World War II, the United State's Ambassador to the Soviet Union received a carved wooden emblem as a gift. Innocuous enough and hand delivered by Moscow schoolchildren, this eagle carving was proudly displayed in the Ambassador's Moscow residence. Hidden inside, however, was a sophisticated listening device that used the principal behind RFID to encode messages in radio wave reflections. The device, which became known as the Thing, needed no battery or power source. Instead, it relied on a radio antenna stationed nearby to broadcast a signal. Radio waves can both bounce off of and be absorbed by objects. A microphone inside the carving would vary how much of the signal gets absorbed, which impacts the signal reflected back. By detecting variations in signal's reflection, audio information could be decoded. This system was used to spy on the United States government, without detection, for nearly 7 years.
+
+</details>
 
 An RFID reader sends out a 860-960MHz radio signal, called the carrier wave. Some of this signal is absorbed by the tag's antenna and converted into power for a tiny computer on board. By changing the antenna's properties to selectively absorb more or less of the carrier wave, the reflected wave can be changed. This change in the reflection back is detected by the reader. This means the tag's computer can "send" data back without using any additional power.
 
