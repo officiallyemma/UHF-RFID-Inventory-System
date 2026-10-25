@@ -76,10 +76,12 @@ I was able to source the RFID reader board and antenna together from AliExpress 
 
 ## Hardware
 
-<img width="250" src="docs/images/case.png" /> <img width="250" src="docs/images/case.gif" />
+<img width="500" src="docs/images/case.png" /> <img width="250" src="docs/images/case.gif" />
 
 The electronics are held in a 3D printed case. STL files are available. If you'd like the (disorganized) Fusion 360 designs, send me an email.
 
 ## Software
+
+<img width="250" src="docs/images/checkmark.png" />
 
 The ESP32 software only needs to periodically send inventory commands to the reader and listen for tag data back in response. The RFID board handles all of the actual RFID inventorying, collision avoidance, and nitty-gritty communication details. All the ESP32 has to do is issue "start inventory" commands and wait for tags to be detected. By default, the device will scan for all saved tags in the vicinity. Once all tags are read, the device shows a check mark and puts the processor to sleep. If, instead after 5 minutes, not all saved tags have been found, an X mark is instead displayed alongside a list of missing tools.
