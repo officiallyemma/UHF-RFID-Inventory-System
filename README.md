@@ -62,7 +62,7 @@ RFID (Radio-Frequency Identification) uses radio waves to communicate with tags 
 
 </details>
 
-An RFID reader sends out a 860-960MHz radio signal, called the carrier wave. Some of this signal is absorbed by the tag's antenna and converted into power for a tiny computer on board. By changing the antenna's properties to selectively absorb more or less of the carrier wave, the reflected wave can be changed. This change in the reflection back is detected by the reader. This means the tag's computer can "send" data back without using any additional power.
+A UHF RFID reader sends out a 860-960MHz radio signal, called the carrier wave. Some of this signal is absorbed by the tag's antenna and converted into power for a tiny computer on board. By changing the antenna's properties to selectively absorb more or less of the carrier wave, the reflected wave can be changed. This change in the reflection back is detected by the reader. This means the tag's computer can "send" data back without using any additional power.
 
 The on-tag computer implements EPC Gen2, a communication and data storage protocol centered around reducing radio signal collisions. Further Reading: Anti Collision Algorithms
 
