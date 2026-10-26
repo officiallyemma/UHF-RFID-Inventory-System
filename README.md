@@ -42,7 +42,7 @@ I was recently at Topgolf, which uses RFID alongside other technologies to track
 
 That got me thinking about the practical limits of RFID technology and what I could build with it. I'd just lost an expensive work tool and was pretty bummed out about it, so an automated inventory system sounded like a great idea.
 
-**Here's the concept: I put RFID stickers on the stuff I care about, and a reader in my car tells me me if any items are missing.**
+**Here's the concept: I put RFID stickers on the stuff I care about, and a reader in my car tells me if any items are missing.**
 
 ## Background
 
