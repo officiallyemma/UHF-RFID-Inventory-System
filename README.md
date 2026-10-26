@@ -1,6 +1,6 @@
 # UHF RFID Tool Inventory System - "Emma's RFID Thing"
 
-### A low-cost, ESP32-based UHF RFID system that automatically checks whether your tools are accounted for.
+### A low-cost, UHF RFID system that automatically checks whether your tools are accounted for.
 
 https://github.com/user-attachments/assets/c475d00b-563d-4544-90bf-386b262ad7c9
 
@@ -86,6 +86,8 @@ Because of this, our friends in Shenzhen, China have discovered ways of making t
 | GPIO 32   | OLED SCL                    |
 
 ### Parts List
+
+<img width="1000" src="docs/images/explode.gif" />
 
 1. RodinBell M300 Series UHF RFID Reader
 
