@@ -127,7 +127,7 @@ The ESP32 software only needs to periodically send inventory commands to the rea
 
 ## Results and Testing
 
-The antenna is positioned in the magazine holder behind the front passenger seat. Despite this less-than-ideal placement, performance has been stellar, exceeding my expectations for both detection range and reliability. This is likely due to the car trapping and reflecting the radio signal around, allowing even directly occluded objects to be illuminated.
+The antenna is positioned in the magazine holder behind the front passenger seat. Despite this less-than-ideal placement, performance has been stellar, exceeding my expectations for both detection range and reliability. This may be due to the radio waves bouncing around in the car.
 
 <img width="500" src="docs/images/occlusion.png"/>
 
