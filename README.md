@@ -6,7 +6,7 @@ https://github.com/user-attachments/assets/c475d00b-563d-4544-90bf-386b262ad7c9
 
 _"RFID Goofin'" with the range turned down for a demo_
 
-<img width="250" alt="image" src="docs/images/1.png" /><img width="250" alt="image" src="docs/images/2.png" /><img width="250" alt="image" src="docs/images/3.png" />
+<img width="250" alt="image" src="/docs/images/1.png" /><img width="250" alt="image" src="/docs/images/2.png" /><img width="250" alt="image" src="/docs/images/3.png" />
 
 _The display shows 6 of 8 expected items detected. The missing items are identified as my MacBook charger (CHRG) and label maker (LABEL)._
 
@@ -46,14 +46,14 @@ That got me thinking about the practical limits of RFID technology and what I co
 
 ## Background
 
-<img width="500" src="docs/images/explainer.gif" />
+<img width="500" src="/docs/images/explainer.gif" />
 
 RFID (Radio-Frequency Identification) uses radio waves to communicate with tags attached to objects. Passive UHF RFID tags don't need their own batteries: they harvest energy from the reader's radio signal and use that energy to respond.
 
 <details>
 <summary>An Aside: RFID in History</summary>
 
-> <img width="250" src="docs/images/soviet_thing.png" />
+> <img width="250" src="/docs/images/soviet_thing.png" />
 
 > During the final months of World War II, the United States ambassador to the Soviet Union received a carved wooden Great Seal as a gift. The carving was displayed in the ambassador's residence in Moscow, where it concealed a sophisticated listening device that went undetected for years.
 > Known as The Thing, the device was passive: it had no battery of its own. Instead, an antenna inside the Thing would pick up ona radio signal from a van outside, reflecting parts of it back. A special microphone was used to change the antenna's properties, varying the signal reflected back towards the source.
@@ -74,7 +74,7 @@ Because of this, our friends in Shenzhen, China have discovered ways of making t
 
 ## Electronics
 
-<img width="500" src="docs/images/wiring_diagram.png" />
+<img width="500" src="/docs/images/wiring_diagram.png" />
 
 | ESP32 Pin | Destination                 |
 | --------- | --------------------------- |
@@ -87,7 +87,7 @@ Because of this, our friends in Shenzhen, China have discovered ways of making t
 
 ### Parts List
 
-<img width="1000" src="docs/images/explode.gif" />
+<img width="1000" src="/docs/images/explode.gif" />
 
 1. RodinBell M300 Series UHF RFID Reader
 
@@ -111,29 +111,35 @@ I was able to source the RFID reader board and antenna together from AliExpress 
 
 ## Hardware
 
-<img width="500" src="docs/images/case.png" /> <img width="250" src="docs/images/case.gif" />
+<img width="500" src="/docs/images/case.png" /> <img width="250" src="/docs/images/case.gif" />
 
 The electronics are held in a 3D printed case. STL files are available. If you'd like the (disorganized) Fusion 360 designs, send me an email.
 
 ## Software
 
-<img width="250" src="docs/images/checkmark.png" />
+<img width="250" src="/docs/images/checkmark.png" />
 
-<img width="750" src="docs/images/chart.svg"/>
+<img width="750" src="/docs/images/chart.svg"/>
 
-<img width="750" src="docs/images/chart_detailed.svg"/>
+<img width="750" src="/docs/images/chart_detailed.svg"/>
 
 The ESP32 software only needs to periodically send inventory commands to the reader and listen for tag data back in response. The RFID board handles all of the actual RFID inventorying, collision avoidance, and nitty-gritty communication details. All the ESP32 has to do is issue "start inventory" commands and wait for tags to be detected. By default, the device will scan for all saved tags in the vicinity. Once all tags are read, the device shows a check mark and puts the processor to sleep. If, instead after 5 minutes, not all saved tags have been found, an X mark is instead displayed alongside a list of missing tools.
 
 ## Results and Testing
 
+<img width="250" src="/docs/images/tag.webp" /> <img width="250" src="/docs/images/tag2.webp" /> <img width="250" src="/docs/images/tag3.webp" />
+
+_RFID tags embedded in stickers are either affixed directly to tools or to a tail made out of duct tape._
+
+When placing RFID stickers, it should be noted that any dense or metallic obstructions will harm the tag's readability. I've found success making duct tape "tails" to help offset the tags from my tools that have electronics inside.
+
 The antenna is positioned in the magazine holder behind the front passenger seat. Despite this less-than-ideal placement, performance has been stellar, exceeding my expectations for both detection range and reliability. This may be due to the radio waves bouncing around in the car.
 
-<img width="500" src="docs/images/occlusion.png"/>
+<img width="500" src="/docs/images/occlusion.png"/>
 
 _Tag #2 is occluded by Tag #1_
 
-<img width="500" src="docs/images/occlusion_reflection.png"/>
+<img width="500" src="/docs/images/occlusion_reflection.png"/>
 
 _Despite the lack of direct line of sight, reflections within the enclosed space may allow Tag #2 to receive enough RF energy to respond to the reader._
 
